@@ -15,6 +15,10 @@ enum CCImage {
     static var down: UIImage = UIImage(resource: .down)
     static var close: UIImage = UIImage(resource: .close)
     
+    // coupon button
+    static var btnActivate: UIImage = UIImage(resource: .btnActivate)
+    static var btnComplete: UIImage = UIImage(resource: .btnComplete)
+    
     // favorites
     static var favoriteOn: UIImage = UIImage(resource: .favoriteOn)
     static var favoriteOff: UIImage = UIImage(resource: .favoriteOff)

@@ -7,12 +7,15 @@
 
 import Foundation
 
-class HomeViewModel {
+final class HomeViewModel {
     
     enum Action {
         case loadData
         case getDataSuccess(HomeResponse)
         case getDataFailure(Error)
+        case loadCoupons
+        case getCouponSuccess(Bool)
+        case didTapCouponButton
     }
     
     final class State {
@@ -22,25 +25,15 @@ class HomeViewModel {
             var bannerViewModels: [HomeBannerCollectionViewCellViewModel]?
             var horizontalProductViewModels: [HomeProductCollectionViewCellViewModel]?
             var verticalProductViewModels: [HomeProductCollectionViewCellViewModel]?
+            var couponState: [HomeCouponButtonCollectionViewCellViewModel]?
+            var seperator1: [HomeSeperatorCollectionViewCellViewModel] = [.init()]
+            var seperator2: [HomeSeperatorCollectionViewCellViewModel] = [.init()]
         }
     }
     
     private(set) var state: State = .init()
     private var loadDataTask: Task<Void, Never>?
-    private func loadData() {
-        loadDataTask = Task {
-            do {
-                let response = try await NetworkService.shared.getHomeData()
-                process(action: .getDataSuccess(response))
-            } catch {
-                process(action: .getDataFailure(error))
-            }
-        }
-    }
-    
-    deinit {
-        loadDataTask?.cancel()
-    }
+    private let couponDownloadedKey: String = "CouponDownloaded"
     
     func process(action: Action) {
         switch action {
@@ -50,6 +43,31 @@ class HomeViewModel {
             transformResponse(response)
         case let .getDataFailure(error):
             print("network error: \(error.localizedDescription)")
+        case .loadCoupons:
+            loadCoupon()
+        case let .getCouponSuccess(isDownloaded):
+            Task { await transformCoupon(isDownloaded) }
+        case .didTapCouponButton:
+            downloadCoupon()
+        }
+    }
+
+    deinit {
+        loadDataTask?.cancel()
+    }
+    
+}
+
+extension HomeViewModel {
+    
+    private func loadData() {
+        loadDataTask = Task {
+            do {
+                let response = try await NetworkService.shared.getHomeData()
+                process(action: .getDataSuccess(response))
+            } catch {
+                process(action: .getDataFailure(error))
+            }
         }
     }
     
@@ -86,5 +104,20 @@ class HomeViewModel {
                 discountPrice: $0.discountPrice.wonString
             )
         }
+    }
+    
+    private func loadCoupon() {
+        let couponState: Bool = UserDefaults.standard.bool(forKey: couponDownloadedKey)
+        process(action: .getCouponSuccess(couponState))
+    }
+    
+    @MainActor
+    private func transformCoupon(_ isDownloaded: Bool) {
+        state.collectionViewModels.couponState = [.init(state: isDownloaded ? .disable : .enable)]
+    }
+    
+    private func downloadCoupon() {
+        UserDefaults.standard.setValue(true, forKey: couponDownloadedKey)
+        process(action: .loadCoupons)
     }
 }

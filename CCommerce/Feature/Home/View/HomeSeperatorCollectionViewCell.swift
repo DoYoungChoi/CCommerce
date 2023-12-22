@@ -1,29 +1,25 @@
 //
-//  HomeBannerCollectionViewCell.swift
+//  HomeSeperatorCollectionViewCell.swift
 //  CCommerce
 //
 //  Created by dodor on 12/22/23.
 //
 
 import UIKit
-import Kingfisher
 
-struct HomeBannerCollectionViewCellViewModel: Hashable {
-    let bannerImageURL: String
-}
+struct HomeSeperatorCollectionViewCellViewModel: Hashable { }
 
-final class HomeBannerCollectionViewCell: UICollectionViewCell {
+final class HomeSeperatorCollectionViewCell: UICollectionViewCell {
     
-    static let identifier: String = "HomeBannerCollectionViewCell"
-    @IBOutlet private weak var imageView: UIImageView!
+    static let identifier: String = "HomeSeperatorCollectionViewCell"
     
-    func setViewModel(_ viewModel: HomeBannerCollectionViewCellViewModel) {
-        imageView.kf.setImage(with: URL(string: viewModel.bannerImageURL))
+    func setViewModel(_ viewModel: HomeSeperatorCollectionViewCellViewModel) {
+        contentView.backgroundColor = CCColor.gray1
     }
 }
 
-extension HomeBannerCollectionViewCell {
-    static func bannerLayout() -> NSCollectionLayoutSection {
+extension HomeSeperatorCollectionViewCell {
+    static func seperatorLayout() -> NSCollectionLayoutSection {
         let itemSize: NSCollectionLayoutSize = .init(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -32,7 +28,7 @@ extension HomeBannerCollectionViewCell {
         
         let groupSize: NSCollectionLayoutSize = .init(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(165 / 393)
+            heightDimension: .absolute(11)
         )
         let group: NSCollectionLayoutGroup = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -40,7 +36,8 @@ extension HomeBannerCollectionViewCell {
         )
         
         let section: NSCollectionLayoutSection = .init(group: group)
-        section.orthogonalScrollingBehavior = .groupPaging
+        section.orthogonalScrollingBehavior = .none
+        section.contentInsets = .zero
         return section
     }
 }
