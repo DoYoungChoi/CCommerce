@@ -12,38 +12,55 @@ class HomeViewModel {
     @Published var horizontalProductViewModels: [HomeProductCollectionViewCellViewModel]?
     @Published var verticalProductViewModels: [HomeProductCollectionViewCellViewModel]?
     
+    private var loadDataTask: Task<Void, Never>?
+    
     func loadData() {
-        Task {
+        loadDataTask = Task {
             do {
-                let homeResponse = try await NetworkService.shared.getHomeData()
-                let bannerViewModels = homeResponse.banners.map {
-                    HomeBannerCollectionViewCellViewModel(bannerImageURL: $0.imageUrl)
-                }
-                let horizontalProductViewModels = homeResponse.horizontalProducts.map {
-                    HomeProductCollectionViewCellViewModel(
-                        imageURLString: $0.imageUrl,
-                        name: $0.title,
-                        discountReason: $0.discount == "Coupon" ? "쿠폰 할인가" : "",
-                        originalPrice: "\($0.originalPrice)원",
-                        discountPrice: "\($0.discountPrice)원"
-                    )
-                }
-                let verticalProductViewModels = homeResponse.verticalProducts.map {
-                    HomeProductCollectionViewCellViewModel(
-                        imageURLString: $0.imageUrl,
-                        name: $0.title,
-                        discountReason: $0.discount == "Coupon" ? "쿠폰 할인가" : "",
-                        originalPrice: "\($0.originalPrice)원",
-                        discountPrice: "\($0.discountPrice)원"
-                    )
-                }
-                
-                self.bannerViewModels = bannerViewModels
-                self.horizontalProductViewModels = horizontalProductViewModels
-                self.verticalProductViewModels = verticalProductViewModels
+                let response = try await NetworkService.shared.getHomeData()
+                Task { await transformBanner(response) }
+                Task { await transformHorizontalProduct(response) }
+                Task { await transformVerticalProduct(response) }
             } catch {
                 print("network error: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    deinit {
+        loadDataTask?.cancel()
+    }
+    
+    @MainActor
+    private func transformBanner(_ response: HomeResponse) async {
+        bannerViewModels = response.banners.map {
+            HomeBannerCollectionViewCellViewModel(bannerImageURL: $0.imageUrl)
+        }
+    }
+    
+    @MainActor
+    private func transformHorizontalProduct(_ response: HomeResponse) async {
+        horizontalProductViewModels = response.horizontalProducts.map {
+            HomeProductCollectionViewCellViewModel(
+                imageURLString: $0.imageUrl,
+                name: $0.title,
+                discountReason: $0.discount == "Coupon" ? "쿠폰 할인가" : "",
+                originalPrice: "\($0.originalPrice)원",
+                discountPrice: "\($0.discountPrice)원"
+            )
+        }
+    }
+    
+    @MainActor
+    private func transformVerticalProduct(_ response: HomeResponse) async {
+        verticalProductViewModels = response.verticalProducts.map {
+            HomeProductCollectionViewCellViewModel(
+                imageURLString: $0.imageUrl,
+                name: $0.title,
+                discountReason: $0.discount == "Coupon" ? "쿠폰 할인가" : "",
+                originalPrice: "\($0.originalPrice)원",
+                discountPrice: "\($0.discountPrice)원"
+            )
         }
     }
 }
