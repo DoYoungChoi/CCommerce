@@ -8,21 +8,32 @@
 import Foundation
 
 class HomeViewModel {
-    @Published var bannerViewModels: [HomeBannerCollectionViewCellViewModel]?
-    @Published var horizontalProductViewModels: [HomeProductCollectionViewCellViewModel]?
-    @Published var verticalProductViewModels: [HomeProductCollectionViewCellViewModel]?
     
+    enum Action {
+        case loadData
+        case getDataSuccess(HomeResponse)
+        case getDataFailure(Error)
+    }
+    
+    final class State {
+        @Published var collectionViewModels: CollectionViewModels = .init()
+        
+        struct CollectionViewModels {
+            var bannerViewModels: [HomeBannerCollectionViewCellViewModel]?
+            var horizontalProductViewModels: [HomeProductCollectionViewCellViewModel]?
+            var verticalProductViewModels: [HomeProductCollectionViewCellViewModel]?
+        }
+    }
+    
+    private(set) var state: State = .init()
     private var loadDataTask: Task<Void, Never>?
-    
-    func loadData() {
+    private func loadData() {
         loadDataTask = Task {
             do {
                 let response = try await NetworkService.shared.getHomeData()
-                Task { await transformBanner(response) }
-                Task { await transformHorizontalProduct(response) }
-                Task { await transformVerticalProduct(response) }
+                process(action: .getDataSuccess(response))
             } catch {
-                print("network error: \(error.localizedDescription)")
+                process(action: .getDataFailure(error))
             }
         }
     }
@@ -31,35 +42,48 @@ class HomeViewModel {
         loadDataTask?.cancel()
     }
     
+    func process(action: Action) {
+        switch action {
+        case .loadData:
+            loadData()
+        case let .getDataSuccess(response):
+            transformResponse(response)
+        case let .getDataFailure(error):
+            print("network error: \(error.localizedDescription)")
+        }
+    }
+    
+    private func transformResponse(_ response: HomeResponse) {
+        Task { await transformBanner(response) }
+        Task { await transformHorizontalProduct(response) }
+        Task { await transformVerticalProduct(response) }
+    }
+    
     @MainActor
     private func transformBanner(_ response: HomeResponse) async {
-        bannerViewModels = response.banners.map {
+        state.collectionViewModels.bannerViewModels = response.banners.map {
             HomeBannerCollectionViewCellViewModel(bannerImageURL: $0.imageUrl)
         }
     }
     
     @MainActor
     private func transformHorizontalProduct(_ response: HomeResponse) async {
-        horizontalProductViewModels = response.horizontalProducts.map {
-            HomeProductCollectionViewCellViewModel(
-                imageURLString: $0.imageUrl,
-                name: $0.title,
-                discountReason: $0.discount == "Coupon" ? "쿠폰 할인가" : "",
-                originalPrice: "\($0.originalPrice)원",
-                discountPrice: "\($0.discountPrice)원"
-            )
-        }
+        state.collectionViewModels.horizontalProductViewModels = productToHomeProductCollectionViewCellViewModel(response.horizontalProducts)
     }
     
     @MainActor
     private func transformVerticalProduct(_ response: HomeResponse) async {
-        verticalProductViewModels = response.verticalProducts.map {
+        state.collectionViewModels.verticalProductViewModels = productToHomeProductCollectionViewCellViewModel(response.verticalProducts)
+    }
+    
+    private func productToHomeProductCollectionViewCellViewModel(_ products: [Product]) -> [HomeProductCollectionViewCellViewModel] {
+        products.map {
             HomeProductCollectionViewCellViewModel(
                 imageURLString: $0.imageUrl,
                 name: $0.title,
                 discountReason: $0.discount == "Coupon" ? "쿠폰 할인가" : "",
-                originalPrice: "\($0.originalPrice)원",
-                discountPrice: "\($0.discountPrice)원"
+                originalPrice: $0.originalPrice.wonString,
+                discountPrice: $0.discountPrice.wonString
             )
         }
     }

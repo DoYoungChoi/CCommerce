@@ -26,10 +26,10 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         binding()
-        viewModel.loadData()
         setDataSource()
-        
         collectionView.collectionViewLayout = compositionalLayout
+        
+        viewModel.process(action: .loadData)
     }
     
     private static func setCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -48,19 +48,7 @@ class HomeViewController: UIViewController {
     }
     
     private func binding() {
-        viewModel.$bannerViewModels
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.applySnapshot()
-            }.store(in: &subscriptions)
-        
-        viewModel.$horizontalProductViewModels
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.applySnapshot()
-            }.store(in: &subscriptions)
-        
-        viewModel.$verticalProductViewModels
+        viewModel.state.$collectionViewModels
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.applySnapshot()
@@ -86,7 +74,7 @@ class HomeViewController: UIViewController {
     
     private func applySnapshot() {
         var snapshot: NSDiffableDataSourceSnapshot<Section, AnyHashable> = .init()
-        if let bannerViewModels = viewModel.bannerViewModels {
+        if let bannerViewModels = viewModel.state.collectionViewModels.bannerViewModels {
             snapshot.appendSections([.banner])
             snapshot.appendItems(
                 bannerViewModels,
@@ -94,7 +82,7 @@ class HomeViewController: UIViewController {
             )
         }
         
-        if let horizontalProductViewModels = viewModel.horizontalProductViewModels {
+        if let horizontalProductViewModels = viewModel.state.collectionViewModels.horizontalProductViewModels {
             snapshot.appendSections([.horizontalProducts])
             snapshot.appendItems(
                 horizontalProductViewModels,
@@ -102,7 +90,7 @@ class HomeViewController: UIViewController {
             )
         }
         
-        if let verticalProductViewModels = viewModel.verticalProductViewModels {
+        if let verticalProductViewModels = viewModel.state.collectionViewModels.verticalProductViewModels {
             snapshot.appendSections([.verticalProducts])
             snapshot.appendItems(
                 verticalProductViewModels,
