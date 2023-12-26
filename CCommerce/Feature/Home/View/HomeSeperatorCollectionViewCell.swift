@@ -7,7 +7,9 @@
 
 import UIKit
 
-struct HomeSeperatorCollectionViewCellViewModel: Hashable { }
+struct HomeSeperatorCollectionViewCellViewModel: Hashable { 
+    let id: UUID = UUID()
+}
 
 final class HomeSeperatorCollectionViewCell: UICollectionViewCell {
     

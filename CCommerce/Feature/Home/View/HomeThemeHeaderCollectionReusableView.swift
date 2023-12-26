@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct HomeThemeHeaderCollectionReusableViewModel {
+struct HomeThemeHeaderCollectionReusableViewModel: Hashable {
     var headerText: String
 }
 

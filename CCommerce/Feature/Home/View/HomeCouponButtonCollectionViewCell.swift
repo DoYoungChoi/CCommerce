@@ -40,7 +40,6 @@ final class HomeCouponButtonCollectionViewCell: UICollectionViewCell {
             false
         }
     }
-    
     @IBAction private func didTapCouponButton(_ sender: Any) {
         didTapCouponDownloaded?.send()
     }

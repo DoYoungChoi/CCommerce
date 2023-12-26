@@ -16,6 +16,7 @@ final class HomeViewController: UIViewController {
     private enum Section: Int {
         case banner
         case horizontalProducts
+        case categories
         case homeSeperator1
         case couponButton
         case verticalProducts
@@ -39,6 +40,7 @@ final class HomeViewController: UIViewController {
         binding()
         collectionView.collectionViewLayout = compositionalLayout
         
+        viewModel.process(action: .loadCategories)
         viewModel.process(action: .loadCoupons)
         viewModel.process(action: .loadData)
     }
@@ -50,6 +52,8 @@ final class HomeViewController: UIViewController {
                 return HomeBannerCollectionViewCell.bannerLayout()
             case .horizontalProducts:
                 return HomeProductCollectionViewCell.horizontalProductsLayout()
+            case .categories:
+                return HomeCategoryCollectionViewCell.categoryLayout()
             case .homeSeperator1, .homeSeperator2:
                 return HomeSeperatorCollectionViewCell.seperatorLayout()
             case .couponButton:
@@ -87,6 +91,8 @@ final class HomeViewController: UIViewController {
                     return self?.bannerCell(collectionView, indexPath, viewModel)
                 case .horizontalProducts, .verticalProducts:
                     return self?.productCell(collectionView, indexPath, viewModel)
+                case .categories:
+                    return self?.categoryCell(collectionView, indexPath, viewModel)
                 case .couponButton:
                     return self?.couponButtonCell(collectionView, indexPath, viewModel)
                 case .homeSeperator1, .homeSeperator2:
@@ -132,6 +138,14 @@ final class HomeViewController: UIViewController {
             snapshot.appendItems(
                 horizontalProductViewModels,
                 toSection: .horizontalProducts
+            )
+        }
+        
+        if let categoryViewModels = viewModel.state.collectionViewModels.categoryViewModels {
+            snapshot.appendSections([.categories])
+            snapshot.appendItems(
+                categoryViewModels,
+                toSection: .categories
             )
             
             snapshot.appendSections([.homeSeperator1])
@@ -203,6 +217,22 @@ extension HomeViewController {
                 withReuseIdentifier: HomeProductCollectionViewCell.identifier,
                 for: indexPath
               ) as? HomeProductCollectionViewCell
+        else { return .init() }
+        
+        cell.setViewModel(viewModel)
+        return cell
+    }
+    
+    private func categoryCell(
+        _ collectionView: UICollectionView,
+        _ indexPath: IndexPath,
+        _ viewModel: AnyHashable
+    ) -> UICollectionViewCell {
+        guard let viewModel = viewModel as? HomeCategoryCollectionViewCellViewModel,
+              let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: HomeCategoryCollectionViewCell.identifier,
+                for: indexPath
+              ) as? HomeCategoryCollectionViewCell
         else { return .init() }
         
         cell.setViewModel(viewModel)

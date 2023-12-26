@@ -13,6 +13,7 @@ final class HomeViewModel {
         case loadData
         case getDataSuccess(HomeResponse)
         case getDataFailure(Error)
+        case loadCategories
         case loadCoupons
         case getCouponSuccess(Bool)
         case didTapCouponButton
@@ -25,6 +26,7 @@ final class HomeViewModel {
             var bannerViewModels: [HomeBannerCollectionViewCellViewModel]?
             var horizontalProductViewModels: [HomeProductCollectionViewCellViewModel]?
             var verticalProductViewModels: [HomeProductCollectionViewCellViewModel]?
+            var categoryViewModels: [HomeCategoryCollectionViewCellViewModel]?
             var couponState: [HomeCouponButtonCollectionViewCellViewModel]?
             var homeThemeViewModels: (headerViewModel: HomeThemeHeaderCollectionReusableViewModel,
                                       items: [HomeThemeCollectionViewCellViewModel])?
@@ -45,6 +47,8 @@ final class HomeViewModel {
             transformResponse(response)
         case let .getDataFailure(error):
             print("network error: \(error.localizedDescription)")
+        case .loadCategories:
+            loadCategories()
         case .loadCoupons:
             loadCoupon()
         case let .getCouponSuccess(isDownloaded):
@@ -98,6 +102,11 @@ extension HomeViewModel {
     }
     
     @MainActor
+    private func transformCategory() async {
+
+    }
+    
+    @MainActor
     private func transformTheme(_ response: HomeResponse) async {
         let items = response.themes.map {
             HomeThemeCollectionViewCellViewModel(themeImageURL: $0.imageUrl)
@@ -118,6 +127,19 @@ extension HomeViewModel {
                 discountPrice: $0.discountPrice.wonString
             )
         }
+    }
+    
+    private func loadCategories() {
+        state.collectionViewModels.categoryViewModels = [
+            .init(image: CCImage.category1Big, categoryName: "패션"),
+            .init(image: CCImage.category2Big, categoryName: "식품"),
+            .init(image: CCImage.category3Big, categoryName: "생활용품"),
+            .init(image: CCImage.category4Big, categoryName: "가전디지털"),
+            .init(image: CCImage.category5Big, categoryName: "스포츠"),
+            .init(image: CCImage.category6Big, categoryName: "애완용품"),
+            .init(image: CCImage.category7Big, categoryName: "파티용품"),
+            .init(image: CCImage.category8Big, categoryName: "가구"),
+        ]
     }
     
     private func loadCoupon() {
