@@ -187,6 +187,15 @@ final class HomeViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
+    @IBAction func favoriteButtonAction(_ sender: Any) {
+        let favoriteStoryboard: UIStoryboard = .init(name: "Favorite", bundle: nil)
+        if let favoriteViewController = favoriteStoryboard.instantiateInitialViewController() {
+            navigationController?.pushViewController(
+                favoriteViewController,
+                animated: true
+            )
+        }
+    }
 }
 
 extension HomeViewController {

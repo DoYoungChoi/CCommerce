@@ -19,11 +19,3 @@ struct Banner: Decodable {
     var imageUrl: String
 }
 
-struct Product: Decodable {
-    var id: Int
-    var imageUrl: String
-    var title: String
-    var discount: String
-    var originalPrice: Int
-    var discountPrice: Int
-}

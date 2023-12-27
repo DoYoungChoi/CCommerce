@@ -18,7 +18,7 @@ enum NetworkError: Error {
 class NetworkService {
     static let shared: NetworkService = .init()
     
-    private let hostURLString: String = "https://my-json-server.typicode.com/JeaSungLee/JsonAPIFastCampus"
+    private let hostURLString: String = "https://my-json-server.typicode.com/JeaSungLee"
     private func createURL(path: String) throws -> URL {
         let urlString = "\(hostURLString)\(path)"
         guard let url = URL(string: urlString) else { throw NetworkError.urlError }
@@ -38,10 +38,21 @@ class NetworkService {
     }
     
     func getHomeData() async throws -> HomeResponse {
-        let url = try createURL(path: "/db")
+        let url = try createURL(path: "/JsonAPIFastCampus/db")
         let data = try await fetchData(from: url)
         do {
             let decodedData = try JSONDecoder().decode(HomeResponse.self, from: data)
+            return decodedData
+        } catch {
+            throw NetworkError.decodeError
+        }
+    }
+    
+    func getFavoriteData() async throws -> FavoriteResponse {
+        let url = try createURL(path: "/jsonapifastcampusfavorite/db")
+        let data = try await fetchData(from: url)
+        do {
+            let decodedData = try JSONDecoder().decode(FavoriteResponse.self, from: data)
             return decodedData
         } catch {
             throw NetworkError.decodeError

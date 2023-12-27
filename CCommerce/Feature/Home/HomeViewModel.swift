@@ -102,11 +102,6 @@ extension HomeViewModel {
     }
     
     @MainActor
-    private func transformCategory() async {
-
-    }
-    
-    @MainActor
     private func transformTheme(_ response: HomeResponse) async {
         let items = response.themes.map {
             HomeThemeCollectionViewCellViewModel(themeImageURL: $0.imageUrl)
