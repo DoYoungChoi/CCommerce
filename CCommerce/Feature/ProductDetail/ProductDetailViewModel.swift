@@ -35,6 +35,7 @@ final class ProductDetailViewModel: ObservableObject {
     @Published private(set) var state: State = .init()
     
     private(set) var showOptionViewController: PassthroughSubject<Void, Never> = .init()
+    private(set) var showPurchaseViewController: PassthroughSubject<Void, Never> = .init()
     private var loadDataTask: Task<Void, Never>?
     
     func process(action: Action) {
@@ -54,7 +55,7 @@ final class ProductDetailViewModel: ObservableObject {
         case .didTapFavoriteButton:
             state.isFavorite.toggle()
         case .didTapPurchaseButton:
-            return
+            showPurchaseViewController.send()
         }
     }
     
