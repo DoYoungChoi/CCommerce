@@ -49,10 +49,21 @@ class NetworkService {
     }
     
     func getFavoriteData() async throws -> FavoriteResponse {
-        let url = try createURL(path: "/jsonapifastcampusfavorite/db")
+        let url = try createURL(path: "/JsonAPIFastCampusFavorite/db")
         let data = try await fetchData(from: url)
         do {
             let decodedData = try JSONDecoder().decode(FavoriteResponse.self, from: data)
+            return decodedData
+        } catch {
+            throw NetworkError.decodeError
+        }
+    }
+    
+    func getProductDetailData() async throws -> ProductResponse {
+        let url = try createURL(path: "/JsonAPIFastCampusProductDetail/db")
+        let data = try await fetchData(from: url)
+        do {
+            let decodedData = try JSONDecoder().decode(ProductResponse.self, from: data)
             return decodedData
         } catch {
             throw NetworkError.decodeError

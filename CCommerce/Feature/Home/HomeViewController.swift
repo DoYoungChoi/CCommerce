@@ -39,6 +39,7 @@ final class HomeViewController: UIViewController {
         
         binding()
         collectionView.collectionViewLayout = compositionalLayout
+        collectionView.delegate = self
         
         viewModel.process(action: .loadCategories)
         viewModel.process(action: .loadCoupons)
@@ -297,6 +298,31 @@ extension HomeViewController {
         
         cell.setViewModel(viewModel)
         return cell
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        switch currentSections[indexPath.section] {
+        case .banner:
+            return
+        case .homeSeperator1, .homeSeperator2:
+            return
+        case .couponButton:
+            return
+        case .horizontalProducts, .verticalProducts:
+            let storyboard: UIStoryboard = .init(name: "ProductDetail", bundle: nil)
+            guard let viewController: UIViewController = storyboard.instantiateInitialViewController()
+            else { return }
+            navigationController?.pushViewController(viewController, animated: true)
+        case .categories:
+            return
+        case .theme:
+            return
+        }
     }
 }
 

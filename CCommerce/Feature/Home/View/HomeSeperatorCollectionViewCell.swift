@@ -16,7 +16,7 @@ final class HomeSeperatorCollectionViewCell: UICollectionViewCell {
     static let identifier: String = "HomeSeperatorCollectionViewCell"
     
     func setViewModel(_ viewModel: HomeSeperatorCollectionViewCellViewModel) {
-        contentView.backgroundColor = CCColor.gray1
+        contentView.backgroundColor = CCColor.UIKit.gray1
     }
 }
 

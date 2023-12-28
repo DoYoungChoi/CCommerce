@@ -20,9 +20,9 @@ final class FavoritePurchaseButton: UIButton {
     
     private func customInit() {
         layer.cornerRadius = 5
-        layer.borderColor = CCColor.keyColorBlue.cgColor
+        layer.borderColor = CCColor.UIKit.keyColorBlue.cgColor
         layer.borderWidth = 1
         setTitle("구매하기", for: .normal)
-        setTitleColor(CCColor.keyColorBlue, for: .normal)
+        setTitleColor(CCColor.UIKit.keyColorBlue, for: .normal)
     }
 }
