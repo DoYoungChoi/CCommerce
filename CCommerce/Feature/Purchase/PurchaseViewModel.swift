@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class PurchaseViewModel: ObservableObject {
     
@@ -17,8 +18,11 @@ final class PurchaseViewModel: ObservableObject {
     }
     struct State {
         var purchaseItems: [PurchaseItemViewModel]?
+        var finalPurchasePrices: FinalPurchasePriceViewModel?
     }
     @Published private(set) var state: State = .init()
+    private(set) var showPaymentViewController: PassthroughSubject<Void, Never> = .init()
+    
     func process(action: Action) {
         switch action {
         case .loadData:
@@ -41,11 +45,17 @@ extension PurchaseViewModel {
                 .init(title: "양반현미밥, 130g, 24개", description: "수량 1개 / 무료배송"),
                 .init(title: "아이엠판다 펀치리버스 스포츠스트랩 38/40mm, 애플워치 SE", description: "수량 1개 / 무료배송"),
             ]
+            self?.state.finalPurchasePrices = .init(
+                totalSalePrice: 34_500.wonString,
+                discountPrice: 5_000.wonString,
+                shippedFee: 0.wonString,
+                totalPrice: 29_500.wonString
+            )
         }
     }
     
     @MainActor
     private func didTapPurchaseButton() async {
-        print("구매버튼 눌림")
+        showPaymentViewController.send()
     }
 }

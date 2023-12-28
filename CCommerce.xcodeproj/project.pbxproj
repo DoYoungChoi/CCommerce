@@ -55,6 +55,8 @@
 		D839DFDE2B3D3DD000E82D16 /* PurchaseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFDD2B3D3DD000E82D16 /* PurchaseItemView.swift */; };
 		D839DFE12B3D4EE800E82D16 /* PurchaseRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE02B3D4EE800E82D16 /* PurchaseRootView.swift */; };
 		D839DFE32B3D50C200E82D16 /* FinalPurchasePriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */; };
+		D839DFE62B3D7BB900E82D16 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE52B3D7BB900E82D16 /* PaymentViewController.swift */; };
+		D839DFE82B3D7BDF00E82D16 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE72B3D7BDF00E82D16 /* PaymentViewModel.swift */; };
 		D8494FB62B352A57001B6523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494FB52B352A57001B6523 /* AppDelegate.swift */; };
 		D8494FB82B352A57001B6523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494FB72B352A57001B6523 /* SceneDelegate.swift */; };
 		D8494FBF2B352A5B001B6523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8494FBE2B352A5B001B6523 /* Assets.xcassets */; };
@@ -108,6 +110,8 @@
 		D839DFDD2B3D3DD000E82D16 /* PurchaseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseItemView.swift; sourceTree = "<group>"; };
 		D839DFE02B3D4EE800E82D16 /* PurchaseRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseRootView.swift; sourceTree = "<group>"; };
 		D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPurchasePriceView.swift; sourceTree = "<group>"; };
+		D839DFE52B3D7BB900E82D16 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		D839DFE72B3D7BDF00E82D16 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		D8494FB22B352A57001B6523 /* CCommerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCommerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8494FB52B352A57001B6523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8494FB72B352A57001B6523 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 				D839DFB92B3BF21A00E82D16 /* ProductDetail */,
 				D839DFD12B3C302800E82D16 /* Option */,
 				D839DFD82B3CF82A00E82D16 /* Purchase */,
+				D839DFE42B3D7BA400E82D16 /* Payment */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -299,6 +304,15 @@
 				D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D839DFE42B3D7BA400E82D16 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				D839DFE52B3D7BB900E82D16 /* PaymentViewController.swift */,
+				D839DFE72B3D7BDF00E82D16 /* PaymentViewModel.swift */,
+			);
+			path = Payment;
 			sourceTree = "<group>";
 		};
 		D8494FA92B352A57001B6523 = {
@@ -451,12 +465,14 @@
 				D839DF552B35513A00E82D16 /* HomeBannerCollectionViewCell.swift in Sources */,
 				D839DFD02B3C19B700E82D16 /* ProductDetailViewController.swift in Sources */,
 				D839DFBE2B3BF2AC00E82D16 /* ProductDetailViewModel.swift in Sources */,
+				D839DFE62B3D7BB900E82D16 /* PaymentViewController.swift in Sources */,
 				D839DFAF2B3B026400E82D16 /* FavoriteViewModel.swift in Sources */,
 				D839DFCC2B3C11E800E82D16 /* ProductDetailPurchaseView.swift in Sources */,
 				D839DFB22B3BD86A00E82D16 /* FavoriteTableViewCell.swift in Sources */,
 				D839DF5E2B356FDF00E82D16 /* HomeResponse.swift in Sources */,
 				D839DFBC2B3BF28300E82D16 /* ProductDetailRootView.swift in Sources */,
 				D839DFDA2B3CF95E00E82D16 /* PurchaseViewController.swift in Sources */,
+				D839DFE82B3D7BDF00E82D16 /* PaymentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

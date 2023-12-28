@@ -88,7 +88,7 @@ final class PurchaseRootView: UIView {
             NSLayoutConstraint.activate(constraints)
             scrollViewConstraints = constraints
         }
-
+        
         if titleLableConstraints == nil,
            let superView = titleLabel.superview {
             let constraints = [
@@ -133,8 +133,17 @@ final class PurchaseRootView: UIView {
         viewModels.forEach {
             purchaseItemStackView.addArrangedSubview(PurchaseItemView(viewModel: $0))
         }
+    }
+    
+    func setFinalPrices(_ viewModel: FinalPurchasePriceViewModel) {
         purchaseItemStackView.addArrangedSubview(
-            FinalPurchasePriceView(viewModel: .init(totalSalePrice: 34_500.wonString, discountPrice: 5_000.wonString, shippedFee: 0.wonString, totalPrice: 29_500.wonString))
+            FinalPurchasePriceView(viewModel: viewModel)
         )
+    }
+    
+    func setPurchaseButtonAction(handler: @escaping () -> Void) {
+        purchaseButton.addAction(UIAction(handler: { _ in
+            handler()
+        }), for: .touchUpInside)
     }
 }
