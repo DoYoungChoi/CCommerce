@@ -53,6 +53,8 @@
 		D839DFDA2B3CF95E00E82D16 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFD92B3CF95E00E82D16 /* PurchaseViewController.swift */; };
 		D839DFDC2B3CF98800E82D16 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFDB2B3CF98800E82D16 /* PurchaseViewModel.swift */; };
 		D839DFDE2B3D3DD000E82D16 /* PurchaseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFDD2B3D3DD000E82D16 /* PurchaseItemView.swift */; };
+		D839DFE12B3D4EE800E82D16 /* PurchaseRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE02B3D4EE800E82D16 /* PurchaseRootView.swift */; };
+		D839DFE32B3D50C200E82D16 /* FinalPurchasePriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */; };
 		D8494FB62B352A57001B6523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494FB52B352A57001B6523 /* AppDelegate.swift */; };
 		D8494FB82B352A57001B6523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494FB72B352A57001B6523 /* SceneDelegate.swift */; };
 		D8494FBF2B352A5B001B6523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8494FBE2B352A5B001B6523 /* Assets.xcassets */; };
@@ -104,6 +106,8 @@
 		D839DFD92B3CF95E00E82D16 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		D839DFDB2B3CF98800E82D16 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
 		D839DFDD2B3D3DD000E82D16 /* PurchaseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseItemView.swift; sourceTree = "<group>"; };
+		D839DFE02B3D4EE800E82D16 /* PurchaseRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseRootView.swift; sourceTree = "<group>"; };
+		D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPurchasePriceView.swift; sourceTree = "<group>"; };
 		D8494FB22B352A57001B6523 /* CCommerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCommerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8494FB52B352A57001B6523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8494FB72B352A57001B6523 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -280,11 +284,21 @@
 		D839DFD82B3CF82A00E82D16 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
+				D839DFDF2B3D4ED600E82D16 /* View */,
 				D839DFD92B3CF95E00E82D16 /* PurchaseViewController.swift */,
 				D839DFDB2B3CF98800E82D16 /* PurchaseViewModel.swift */,
-				D839DFDD2B3D3DD000E82D16 /* PurchaseItemView.swift */,
 			);
 			path = Purchase;
+			sourceTree = "<group>";
+		};
+		D839DFDF2B3D4ED600E82D16 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D839DFE02B3D4EE800E82D16 /* PurchaseRootView.swift */,
+				D839DFDD2B3D3DD000E82D16 /* PurchaseItemView.swift */,
+				D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D8494FA92B352A57001B6523 = {
@@ -419,7 +433,9 @@
 				D8494FB62B352A57001B6523 /* AppDelegate.swift in Sources */,
 				D839DFB62B3BDF2C00E82D16 /* FavoriteResponse.swift in Sources */,
 				D839DFB42B3BDD3B00E82D16 /* FavoritePurchaseButton.swift in Sources */,
+				D839DFE12B3D4EE800E82D16 /* PurchaseRootView.swift in Sources */,
 				D839DF4B2B3545FE00E82D16 /* CCFont.swift in Sources */,
+				D839DFE32B3D50C200E82D16 /* FinalPurchasePriceView.swift in Sources */,
 				D839DF6A2B35D13100E82D16 /* HomeSeperatorCollectionViewCell.swift in Sources */,
 				D839DF632B357C2400E82D16 /* HomeViewModel.swift in Sources */,
 				D839DFC82B3C04E800E82D16 /* ProductDetailPriceView.swift in Sources */,
