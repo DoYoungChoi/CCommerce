@@ -57,6 +57,7 @@
 		D839DFE32B3D50C200E82D16 /* FinalPurchasePriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */; };
 		D839DFE62B3D7BB900E82D16 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE52B3D7BB900E82D16 /* PaymentViewController.swift */; };
 		D839DFE82B3D7BDF00E82D16 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839DFE72B3D7BDF00E82D16 /* PaymentViewModel.swift */; };
+		D839DFEA2B3DCF1E00E82D16 /* payment.html in Resources */ = {isa = PBXBuildFile; fileRef = D839DFE92B3DCF1E00E82D16 /* payment.html */; };
 		D8494FB62B352A57001B6523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494FB52B352A57001B6523 /* AppDelegate.swift */; };
 		D8494FB82B352A57001B6523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494FB72B352A57001B6523 /* SceneDelegate.swift */; };
 		D8494FBF2B352A5B001B6523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8494FBE2B352A5B001B6523 /* Assets.xcassets */; };
@@ -112,6 +113,7 @@
 		D839DFE22B3D50C200E82D16 /* FinalPurchasePriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPurchasePriceView.swift; sourceTree = "<group>"; };
 		D839DFE52B3D7BB900E82D16 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		D839DFE72B3D7BDF00E82D16 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		D839DFE92B3DCF1E00E82D16 /* payment.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = payment.html; sourceTree = "<group>"; };
 		D8494FB22B352A57001B6523 /* CCommerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCommerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8494FB52B352A57001B6523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8494FB72B352A57001B6523 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		D839DFE42B3D7BA400E82D16 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
+				D839DFE92B3DCF1E00E82D16 /* payment.html */,
 				D839DFE52B3D7BB900E82D16 /* PaymentViewController.swift */,
 				D839DFE72B3D7BDF00E82D16 /* PaymentViewModel.swift */,
 			);
@@ -418,6 +421,7 @@
 				D839DF432B35407200E82D16 /* Images.xcassets in Resources */,
 				D8494FBF2B352A5B001B6523 /* Assets.xcassets in Resources */,
 				D839DF472B35434600E82D16 /* Colors.xcassets in Resources */,
+				D839DFEA2B3DCF1E00E82D16 /* payment.html in Resources */,
 				D839DF3B2B3535A200E82D16 /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

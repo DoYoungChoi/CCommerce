@@ -26,11 +26,12 @@ final class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        webView?.load(URLRequest(url: URL(string: "https://google.co.kr")!))
+//        webView?.load(URLRequest(url: URL(string: "https://google.co.kr")!))
+        loadWebView()
     }
 
     private func loadWebView() {
-        guard let htmlPath = Bundle.main.path(forResource: "test", ofType: "html")
+        guard let htmlPath = Bundle.main.path(forResource: "payment", ofType: "html")
         else { return }
         let url = URL(fileURLWithPath: htmlPath)
         let request = URLRequest(url: url)
@@ -43,15 +44,15 @@ final class PaymentViewController: UIViewController {
     }
     
     private func setCookie() {
-        guard let cookie = HTTPCookie(properties: [
-            .domain: "google.co.kr",
-            .path: "/",
-            .name: "myCookie",
-            .value: "cookieValue",
-            .secure: "FALSE",
-            .expires: NSDate(timeIntervalSinceNow: 3600)
-        ]) else { return }
-        webView?.configuration.websiteDataStore.httpCookieStore.setCookie(cookie)
+//        guard let cookie = HTTPCookie(properties: [
+//            .domain: "google.co.kr",
+//            .path: "/",
+//            .name: "myCookie",
+//            .value: "cookieValue",
+//            .secure: "FALSE",
+//            .expires: NSDate(timeIntervalSinceNow: 3600)
+//        ]) else { return }
+//        webView?.configuration.websiteDataStore.httpCookieStore.setCookie(cookie)
     }
     
     private func callJavaScript() {
